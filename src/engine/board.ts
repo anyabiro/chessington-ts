@@ -47,4 +47,8 @@ export default class Board {
         }
         return board;
     }
+
+    public isEmpty(square: Square): boolean {
+        return this.getPiece(square) === undefined;
+    }
 }
