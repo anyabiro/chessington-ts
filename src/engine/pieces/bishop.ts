@@ -9,47 +9,45 @@ export default class Bishop extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        const availableMoves: Square[] = [];
+        return this.getForwardDiagonal(board).concat(this.getBackwardDiagonal(board));
+    }
+
+    public getForwardDiagonal(board: Board) {
         const currentSquare: Square = board.findPiece(this);
-        let nextRow, nextCol: number;
+        let initialRow, initialCol: number;
 
         if (currentSquare.row < currentSquare.col) {
-            nextRow = 0;
-            nextCol = currentSquare.col - currentSquare.row;
+            initialRow = 0;
+            initialCol = currentSquare.col - currentSquare.row;
         } else {
-            nextRow = currentSquare.row - currentSquare.col;
-            nextCol = 0;
+            initialRow = currentSquare.row - currentSquare.col;
+            initialCol = 0;
         }
 
-        while (1) {
-            let nextSquare: Square = new Square(nextRow, nextCol);
-            if (!nextSquare.isInBounds()) {
-                break;
-            }
+        return this.getDiagonalMoves(board, initialRow, initialCol, 1, 1);
+    }
 
+    public getBackwardDiagonal(board: Board) {
+        const currentSquare: Square = board.findPiece(this);
+        let initialRow: number = 0;
+        let initialCol: number = currentSquare.row + currentSquare.col;
+
+        return this.getDiagonalMoves(board, initialRow, initialCol, 1, -1);
+    }
+
+    getDiagonalMoves(board: Board, initialRow: number, initialCol: number, xDirection: number, yDirection: number): Square[] {
+        const diagonalMoves: Square[] = [];
+        let nextSquare = new Square(initialRow, initialCol);
+
+        while (nextSquare.isInBounds()) {
             if (board.isEmpty(nextSquare)) {
-                availableMoves.push(nextSquare);
+                diagonalMoves.push(nextSquare);
             }
-            nextRow++;
-            nextCol++;
+            initialRow += xDirection;
+            initialCol += yDirection;
+            nextSquare = new Square(initialRow, initialCol);
         }
 
-        nextRow = 0;
-        nextCol = currentSquare.row + currentSquare.col;
-
-        while (1) {
-            let nextSquare: Square = new Square(nextRow, nextCol);
-            if (!nextSquare.isInBounds()) {
-                break;
-            }
-
-            if (board.isEmpty(nextSquare)) {
-                availableMoves.push(nextSquare);
-            }
-            nextRow++;
-            nextCol--;
-        }
-
-        return availableMoves;
+        return diagonalMoves;
     }
 }
