@@ -16,13 +16,13 @@ export default class Pawn extends Piece {
         const direction: number = this.player == player.WHITE ? 1 : -1;
 
         const nextSquare: Square = new Square(currentSquare.row + direction, currentSquare.col);
-        if (nextSquare.isInBounds() && board.getPiece(nextSquare) === undefined) {
+        if (nextSquare.isInBounds() && board.isEmpty(nextSquare)) {
             availableMoves.push(nextSquare);
         }
 
         if (!this.hasMoved) {
             const farSquare: Square = new Square(currentSquare.row + 2 * direction, currentSquare.col);
-            if (farSquare.isInBounds() && board.getPiece(farSquare) === undefined) {
+            if (farSquare.isInBounds() && board.isEmpty(farSquare)) {
                 availableMoves.push(farSquare);
             }
         }
