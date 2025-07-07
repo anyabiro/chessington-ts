@@ -51,4 +51,62 @@ export default class Board {
     public isEmpty(square: Square): boolean {
         return this.getPiece(square) === undefined;
     }
+
+    public getForwardDiagonalMoves(piece: Piece) {
+        const currentSquare: Square = this.findPiece(piece);
+        let initialRow, initialCol: number;
+
+        if (currentSquare.row < currentSquare.col) {
+            initialRow = 0;
+            initialCol = currentSquare.col - currentSquare.row;
+        } else {
+            initialRow = currentSquare.row - currentSquare.col;
+            initialCol = 0;
+        }
+
+        return this.getMovesForADiagonal(initialRow, initialCol, 1, 1);
+    }
+
+    public getBackwardDiagonalMoves(piece: Piece) {
+        const currentSquare: Square = this.findPiece(piece);
+        const initialRow: number = 0;
+        const initialCol: number = currentSquare.row + currentSquare.col;
+
+        return this.getMovesForADiagonal(initialRow, initialCol, 1, -1);
+    }
+
+    public getMovesForADiagonal(initialRow: number, initialCol: number, xDirection: number, yDirection: number): Square[] {
+        const diagonalMoves: Square[] = [];
+        let nextSquare = new Square(initialRow, initialCol);
+
+        while (nextSquare.isInBounds()) {
+            if (this.isEmpty(nextSquare)) {
+                diagonalMoves.push(nextSquare);
+            }
+            initialRow += xDirection;
+            initialCol += yDirection;
+            nextSquare = new Square(initialRow, initialCol);
+        }
+
+        return diagonalMoves;
+    }
+
+    public getLateralMoves(piece: Piece): Square[] {
+        const lateralMoves: Square[] = [];
+        const currentSquare = this.findPiece(piece);
+
+        for (let coord: number = 0; coord < 8; coord++) {
+            const verticalMove: Square = new Square(coord, currentSquare.col);
+            if (this.isEmpty(verticalMove)) {
+                lateralMoves.push(verticalMove);
+            }
+
+            const horizontalMove: Square = new Square(currentSquare.row, coord);
+            if (this.isEmpty(horizontalMove)) {
+                lateralMoves.push(horizontalMove);
+            }
+        }
+
+        return lateralMoves;
+    }
 }
