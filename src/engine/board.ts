@@ -69,8 +69,9 @@ export default class Board {
 
     public getBackwardDiagonalMoves(piece: Piece) {
         const currentSquare: Square = this.findPiece(piece);
-        const initialRow: number = 0;
-        const initialCol: number = currentSquare.row + currentSquare.col;
+        const sum: number = currentSquare.row + currentSquare.col;
+        const initialRow: number = sum < 8 ? 0 : sum - 7;
+        const initialCol: number = sum - initialRow;
 
         return this.getMovesForADiagonal(initialRow, initialCol, 1, -1);
     }
