@@ -10,15 +10,15 @@ export default class Pawn extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        let availableMoves: Square[] = [];
-        let currentSquare: Square = board.findPiece(this);
+        const availableMoves: Square[] = [];
+        const currentSquare: Square = board.findPiece(this);
 
-        let upSquare: Square = new Square(currentSquare.row + 1, currentSquare.col);
+        const upSquare: Square = new Square(currentSquare.row + 1, currentSquare.col);
         if (upSquare.row < 8 && board.getPiece(upSquare) === undefined) {
             availableMoves.push(upSquare);
         }
 
-        let downSquare: Square = new Square(currentSquare.row - 1, currentSquare.col);
+        const downSquare: Square = new Square(currentSquare.row - 1, currentSquare.col);
         if (downSquare.row >= 0 && board.getPiece(downSquare) === undefined) {
             availableMoves.push(downSquare);
         }
