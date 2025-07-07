@@ -109,4 +109,18 @@ export default class Board {
 
         return lateralMoves;
     }
+
+    public getMovesFromArray(piece: Piece, rowMovements: number[], colMovements: number[]): Square[] {
+        const availableMoves: Square[] = [];
+        const currentSquare: Square = this.findPiece(piece);
+
+        for (let i = 0; i < rowMovements.length; i++) {
+            const nextSquare: Square = new Square(currentSquare.row + rowMovements[i], currentSquare.col + colMovements[i]);
+            if (nextSquare.isInBounds() && this.isEmpty(nextSquare)) {
+                availableMoves.push(nextSquare);
+            }
+        }
+
+        return availableMoves;
+    }
 }
