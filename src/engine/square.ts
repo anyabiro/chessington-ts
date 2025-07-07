@@ -18,4 +18,8 @@ export default class Square {
     public toString() {
         return `Row ${this.row}, Col ${this.col}`;
     }
+
+    public isInBounds() {
+        return this.row < 8 && this.row >= 0 && this.col < 8 && this.col >= 0;
+    }
 }

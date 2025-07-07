@@ -39,4 +39,12 @@ export default class Board {
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
+
+    private createBoard() {
+        const board = new Array(GameSettings.BOARD_SIZE);
+        for (let i = 0; i < board.length; i++) {
+            board[i] = new Array(GameSettings.BOARD_SIZE);
+        }
+        return board;
+    }
 }
