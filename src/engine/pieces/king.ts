@@ -8,9 +8,6 @@ export default class King extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        const rowMovements: number[] = [1, 1, 1, 0, 0, -1, -1, -1];
-        const colMovements: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
-
-        return board.getMovesFromArray(this, rowMovements, colMovements);
+        return new Array(0);
     }
 }

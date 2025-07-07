@@ -9,6 +9,20 @@ export default class Rook extends Piece {
     }
 
     public getAvailableMoves(board: Board): Square[] {
-        return board.getLateralMoves(this);
+        const availableMoves: Square[] = [];
+        const currentSquare = board.findPiece(this);
+
+        for (let coord: number = 0; coord < 8; coord++) {
+            let verticalMove: Square = new Square(coord, currentSquare.col);
+            if (board.isEmpty(verticalMove)) {
+                availableMoves.push(verticalMove);
+            }
+
+            let horizontalMove: Square = new Square(currentSquare.row, coord);
+            if (board.isEmpty(horizontalMove)) {
+                availableMoves.push(horizontalMove);
+            }
+        }
+        return availableMoves;
     }
 }
