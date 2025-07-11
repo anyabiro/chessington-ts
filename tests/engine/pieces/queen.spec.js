@@ -1,14 +1,15 @@
 import 'chai/register-should';
 import Queen from '../../../src/engine/pieces/queen';
+import Pawn from '../../../src/engine/pieces/pawn';
 import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
-import Pawn from "../../../src/engine/pieces/pawn";
+import GameSettings from '../../../src/engine/gameSettings';
 
 describe('Queen', () => {
 
-    let board: Board;
-    beforeEach(() => board = new Board(Player.WHITE));
+    let board;
+    beforeEach(() => board = new Board());
 
     it('can move laterally', () => {
         const queen = new Queen(Player.WHITE);
@@ -22,7 +23,7 @@ describe('Queen', () => {
             // Vertical
             Square.at(0, 3), Square.at(1, 3), Square.at(3, 3), Square.at(4, 3), Square.at(5, 3), Square.at(6, 3), Square.at(7, 3)
         ];
-
+        
         moves.should.deep.include.members(expectedMoves);
     });
 
@@ -38,7 +39,7 @@ describe('Queen', () => {
             // Backwards diagonal
             Square.at(0, 5), Square.at(1, 4), Square.at(3, 2), Square.at(4, 1), Square.at(5, 0)
         ];
-
+        
         moves.should.deep.include.members(expectedMoves);
     });
 
